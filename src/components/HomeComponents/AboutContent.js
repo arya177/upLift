@@ -76,8 +76,7 @@ const AboutContent = () => {
       
     </Card>
     <div style={{width: '100%'}}>
-    <p>select location</p>
-    <MapLocationPicker/>
+  
     </div>
     </div>
   );
