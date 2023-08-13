@@ -1,8 +1,14 @@
 import React from 'react';
+import PrimaryNavbar from '../components/workerComponents/PrimaryNavbar'
+import WorkerContent from '../components/workerComponents/WorkerContent'
+import Footer from '../components/Footer'
 
-const WorkHomePage = () => {
+const WorkerHomePage = () => {
     return (
-        <></>
+        <>
+            <PrimaryNavbar/>
+            <Footer />
+        </>
     );
 }
-export default WorkHomePage
+export default WorkerHomePage

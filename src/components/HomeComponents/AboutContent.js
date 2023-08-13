@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import { Link,useNavigate,useLocation } from 'react-router-dom';
 import AboutImageList from './AboutImageList';
 import AddTaskIcon from '@mui/icons-material/AddTask';
+import MapLocationPicker from '../MapLocationPicker';
 
 const bull = (
   <Box
@@ -74,6 +75,10 @@ const AboutContent = () => {
       </CardContent>
       
     </Card>
+    <div style={{width: '100%'}}>
+    <p>select location</p>
+    <MapLocationPicker/>
+    </div>
     </div>
   );
 }

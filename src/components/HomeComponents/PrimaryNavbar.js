@@ -46,8 +46,8 @@ const PrimaryNavbar = () => {
       <AppBar position="static" sx={{height: '110px', justifyContent: 'center'}}>
         <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
           <div style={{display: 'flex'}}>
-          <img src={logo} alt="Logo" style={{width:'100px', height: '100px', marginTop:'25px'}}/>
-          <p style={{fontSize: '50px', fontWeight:'500'}}>UpLift</p>
+            <img src={logo} alt="Logo" style={{width:'100px', height: '100px', marginTop:'25px'}}/>
+            <p style={{fontSize: '50px', fontWeight:'500'}}>UpLift</p>
           </div>
           {user!==null ?  (
             <div >

@@ -3,6 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import {Link} from 'react-router-dom'
 
 const SecondaryNavbar = () => {
   return (
@@ -10,15 +11,10 @@ const SecondaryNavbar = () => {
       <AppBar position="static">
         <Toolbar variant="dense">
           
-          <Typography variant="h6" color="inherit" component="div" sx={{marginLeft: '35px'}}>
-            About
-          </Typography>
-          <Typography variant="h6" color="inherit" component="div" sx={{marginLeft: '25px'}}>
-            Post Job
-          </Typography>
-          <Typography variant="h6" color="inherit" component="div" sx={{marginLeft: '25px'}}>
-            Find Job
-          </Typography>
+          <Link style={{marginLeft: '35px', textDecoration: 'none', color: 'white'}}>About</Link>
+          <Link to='/ClientHomePage' style={{marginLeft: '25px', textDecoration: 'none', color: 'white'}}>Post Job</Link>
+          <Link to='/WorkerHomePage' style={{marginLeft: '25px', textDecoration: 'none', color: 'white'}}>Find Job</Link>
+
         </Toolbar>
       </AppBar>
     </Box>
