@@ -20,7 +20,7 @@ const FormPage2 = () => {
     return (
         <>
             <PrimaryNavbar/>
-            <div style={{display: 'flex', marginTop: '80px', alignItems: 'center', justifyContent: 'center', width: '60%', marginLeft: '25%'}}>
+            <div style={{display: 'flex', marginTop: '80px', width: '60%', marginLeft: '25%'}}>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', width: '40%'}}>
                     <div>2/4 Job post</div>
                     <div style={{marginTop: '30px', fontSize: '40px'}}>Let's estimate the scope of your work</div>
@@ -65,10 +65,10 @@ const FormPage2 = () => {
                 </div>
             </div>
             <div style={{display: 'flex'}}>
-                <div style={{width: '50%', height: '0px', border: '2px solid #4343a4', marginTop: '400px'}}></div>
-                <div style={{width: '50%', height: '0px', border: '2px solid lightgrey', marginTop: '400px'}}></div>
+                <div style={{width: '50%', height: '0px', border: '2px solid #4343a4', marginTop: '100px'}}></div>
+                <div style={{width: '50%', height: '0px', border: '2px solid lightgrey', marginTop: '100px'}}></div>
             </div>
-            <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems:'center'}}>
+            <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems:'center', marginBottom: '30px'}}>
                 <button onClick={() => {navigate('/ClientHomePage/title')}}style={{padding: '10px 30px', fontSize: '15px', borderRadius: '5px', backgroundColor:'transparent', color: '#4343a4', marginLeft: '70px', marginTop: '20px'}}>Back</button>
                 <button onClick={() => {navigate('/ClientHomePage/budget')}}style={{padding: '10px 30px', fontSize: '15px', borderRadius: '5px', backgroundColor:'#4343a4', color:'white', marginRight: '70px', marginTop: '20px'}}>Next</button>
             </div>

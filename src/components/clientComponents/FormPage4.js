@@ -41,7 +41,7 @@ const FormPage4 = () => {
             </div>
             <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems:'center'}}>
                 <button onClick={() => {navigate('/ClientHomePage/budget')}}style={{padding: '10px 30px', fontSize: '15px', borderRadius: '5px', backgroundColor:'transparent', color: '#4343a4', marginLeft: '70px', marginTop: '20px'}}>Back</button>
-                <button onClick={() => {navigate('/')}}style={{padding: '10px 30px', fontSize: '15px', borderRadius: '5px', backgroundColor:'#4343a4', color:'white', marginRight: '70px', marginTop: '20px'}}>Review Job Post</button>
+                <button onClick={() => {navigate('/ClientHomePage/review')}}style={{padding: '10px 30px', fontSize: '15px', borderRadius: '5px', backgroundColor:'#4343a4', color:'white', marginRight: '70px', marginTop: '20px'}}>Review Job Post</button>
             </div>
         </>
     )

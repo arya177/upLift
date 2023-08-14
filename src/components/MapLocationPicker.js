@@ -13,7 +13,7 @@ function MapLocationPicker() {
     <div>
       <MapContainer
         center={[51.505, -0.09]}
-        zoom={10} // Adjust this value
+        zoom={15} // Adjust this value
         style={{ height: '400px', width: '100%' }}
         onClick={handleMapClick}
       >

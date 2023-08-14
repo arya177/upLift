@@ -14,6 +14,10 @@ import FormPage1 from './components/clientComponents/FormPage1';
 import FormPage2 from './components/clientComponents/FormPage2';
 import FormPage3 from './components/clientComponents/FormPage3';
 import FormPage4 from './components/clientComponents/FormPage4';
+import JobDetails from './components/clientComponents/JobDetails';
+import MyJobs from './components/clientComponents/MyJobs';
+import AllJobs from './components/clientComponents/AllJobs';
+import UserProfile from './components/UserProfile';
 
 function App() {
   return (
@@ -33,6 +37,10 @@ function App() {
         <Route path='/ClientHomePage/duration' element={<FormPage2/>}/>
         <Route path='/ClientHomePage/budget' element={<FormPage3/>}/>
         <Route path='/ClientHomePage/description' element={<FormPage4/>}/>
+        <Route path='/ClientHomePage/review' element={<JobDetails/>}/>
+        <Route path='/ClientHomePage/my-jobs' element={<MyJobs/>}/>
+        <Route path='/ClientHomePage/all-jobs' element={<AllJobs/>}/>
+        <Route path='/users' element={<UserProfile/>} />
       </Routes>
     </Router>
     </UserProvider>

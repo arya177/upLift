@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 
 const PrimaryNavbar = () => {
     const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
+    const navigate = useNavigate();
     const handleMouseEnter1 = (e) => {
         setIsDropdownOpen1(true);
     };
@@ -37,7 +38,7 @@ const PrimaryNavbar = () => {
         workDiary: false,
         messages: false
     })
-    const handleFindWork = () => {
+    const handlePostJob = () => {
         setOptions({
             findWork: true,
             savedJobs: false,
@@ -47,6 +48,7 @@ const PrimaryNavbar = () => {
             workDiary: false,
             messages: false
         })
+        navigate('/ClientHomePage/GettingStarted')
     }
     const hamdleMessages = () => {
         setOptions({
@@ -91,8 +93,9 @@ const PrimaryNavbar = () => {
             workDiary: false,
             messages: false
         })
+        navigate('/ClientHomePage/my-jobs')
     }
-    const handleProposals = () => {
+    const handleAllJobs = () => {
         setOptions({
             findWork: false,
             savedJobs: false,
@@ -102,18 +105,9 @@ const PrimaryNavbar = () => {
             workDiary: false,
             messages: false
         })
+        navigate('/ClientHomePage/all-jobs')
     }
-    const handleSavedJobs = () => {
-        setOptions({
-            findWork: false,
-            savedJobs: true,
-            proposals: false,
-            myJobs: false,
-            allContracts: false,
-            workDiary: false,
-            messages: false
-        })
-    }
+ 
 
     //avatar
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -124,7 +118,6 @@ const PrimaryNavbar = () => {
         setAnchorEl(null);
     };
     //logout
-    const navigate = useNavigate();
     const auth = getAuth();
     const user = useUserContext();
 
@@ -174,7 +167,7 @@ const PrimaryNavbar = () => {
                                             style={{ padding: '10px'}}
                                             onMouseEnter={(e) => e.target.style.color = 'blue'}
                                             onMouseLeave={(e) => e.target.style.color = 'black'}
-                                            onClick = {handleFindWork}
+                                            onClick = {handlePostJob}
                                         >
                                             <div>Post Job</div>
                                             
@@ -183,7 +176,7 @@ const PrimaryNavbar = () => {
                                             style={{ padding: '10px'}}
                                             onMouseEnter={(e) => e.target.style.color = 'blue'}
                                             onMouseLeave={(e) => e.target.style.color = 'black'}
-                                            onClick = {handleSavedJobs}
+                                            onClick = {handleMyJobs}
                                         >
                                             <div>My Jobs</div>
                                         </li>
@@ -191,7 +184,7 @@ const PrimaryNavbar = () => {
                                             style={{ padding: '10px'}}
                                             onMouseEnter={(e) => e.target.style.color = 'blue'}
                                             onMouseLeave={(e) => e.target.style.color = 'black'}
-                                            onClick = {handleProposals}
+                                            onClick = {handleAllJobs}
                                         >
                                             <div>All Job Posts</div>
                                         </li>
@@ -294,7 +287,7 @@ const PrimaryNavbar = () => {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleClose}>Profile</MenuItem>
+                            <MenuItem onClick={()=>{navigate('/users')}}>Profile</MenuItem>
                             <MenuItem onClick={handleLogout}>Logout</MenuItem>
                         </Menu>
                     </div>

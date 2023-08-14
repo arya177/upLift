@@ -21,6 +21,7 @@ const PrimaryNavbar = () => {
   const handleLogout = () => {
     signOut(auth).then(() => {
       // Sign-out successful.
+      
       toast.success("Logged out successfully")
       // navigate("/")
     }).catch((error) => {
@@ -77,7 +78,7 @@ const PrimaryNavbar = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={()=>{navigate('/users')}}>Profile</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
