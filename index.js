@@ -6,6 +6,11 @@ const { db }  = require("./db/firebase");
 const { child, ref, get, set, update } =require("firebase/database");
 const uuid = require('uuid-random');
 app.use(express.json());
+const cors = require('cors');
+app.use(cors({
+  origin: 'http://localhost:3000', 
+  credentials: true, 
+}));
 
 //Get all the services
 app.get("/servcies",async (req,res) => {
@@ -15,25 +20,35 @@ app.get("/servcies",async (req,res) => {
 })
 
 //Get all the new Request
-app.get("/getRequests", async(req,res) => {
-  const currUser = await getUserInfo(req.body.email);
+app.get("/getRequests", async (req, res) => {
+  console.log(req.query); // Log query parameters
+  const email = req.query.email; // Access the email query parameter
+  if (!email) {
+    return res.status(400).json({ error: 'Email parameter is missing' });
+  }
+  const currUser = await getUserInfo(email);
   const services = currUser.services;
-  const snapshot = await db.ref("requests/")
+  try {
+    const snapshot = await db.ref("requests/")
       .orderByChild("status")
       .equalTo("active")
       .once("value");
-  let availableRequest = {};
-  for (const key in snapshot.val()) {
-    if (snapshot.val().hasOwnProperty(key)) {
-      const value = snapshot.val()[key];
-      if (services.includes(value.services)) {
-        availableRequest[key] = value
+    let availableRequest = {};
+    for (const key in snapshot.val()) {
+      if (snapshot.val().hasOwnProperty(key)) {
+        const value = snapshot.val()[key];
+        if (services.includes(value.services)) {
+          availableRequest[key] = value;
+        }
       }
     }
+    res.send(availableRequest);
+  } catch (error) {
+    console.error('Error fetching requests:', error);
+    res.status(500).json({ error: 'An error occurred while fetching requests' });
   }
-  
-  res.send(availableRequest);
-})
+});
+
 
 app.post("/createRequest", async(req,res) => {
   const data = await getUserInfo(req.body.email);
@@ -102,32 +117,56 @@ app.get("/getSimilar",async(req,res) => {
   res.send(matchedWord);
 })
 
-async function getUserInfo(userID) {
+async function getUserInfo(email) {
   const snapshot = await db.ref("users/")
       .orderByChild("email")
-      .equalTo(userID)
+      .equalTo(email)
       .once("value");
-  let tempStore = snapshot.val()[Object.keys(snapshot.val())];
-  tempStore["uid"] = Object.keys(snapshot.val());
-  return tempStore;
+  
+  const userObject = snapshot.val();
+  
+  if (userObject) {
+    // Get the user object from the first key in the snapshot
+    const userId = Object.keys(userObject)[0];
+    const userData = userObject[userId];
+    
+    // Add the user ID to the user data
+    userData.uid = userId;
+    
+    return userData;
+  } else {
+    // User not found
+    return null;
+  }
 }
 
 app.get("/getUser", async(req,res) => {
-  res.send(getUserInfo(req.body.email));
-})
+  try {
+    const userData = await getUserInfo(req.query.email);
+    if (userData) {
+      res.status(200).send(userData);
+    } else {
+      res.status(404).send("User not found");
+    }
+  } catch (error) {
+    console.error('Error fetching user info:', error);
+    res.status(500).send("Internal server error");
+  }
+});
 
 // Request for submitting a new service
 app.post("/register",async (req,res)=> {
+  console.log(req.body)
   await set(ref(db, "users/"+ uuid()), {
     email : req.body.email,
     name : req.body.name,
-    currLocation : req.body.location,
+    currLocation : req.body.location || '',
     prevServiceRecords : [null],
     walletPoints : 0,
     role : req.body.role,
     prevProviderRecords : [null],
     services : (req.body.services === undefined? null : req.body.services),
-    mobileNumber : req.body.mobile
+    mobileNumber: req.body.mobileNumber ?? ''
    // status : "Free"
   }).then(() => {
     res.sendStatus(200);
