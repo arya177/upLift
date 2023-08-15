@@ -1,11 +1,14 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Avatar from 'react-avatar';
 import Rating from '@mui/material/Rating';
 import JobCard from './workerComponents/JobCard';
 import Footer from './Footer';
 import PrimaryNavbar from './PrimaryNavbar';
+import {getUserInfo} from '../api'
+import { useUserContext } from '../UserContext';
 
 const UserProfile = () => {
+    const user = useUserContext();
     const profileStyle = {
         display: 'flex',
         flexDirection: 'column',
@@ -25,9 +28,23 @@ const UserProfile = () => {
         fontSize: '1rem',
       };
       const [selectedTab, setSelectedTab] = useState('allJobPosts');
-        const handleTabClick = (tab) => {
-            setSelectedTab(tab);
-        };
+      const handleTabClick = (tab) => {
+          setSelectedTab(tab);
+      };
+      const [userInfo, setUserInfo] = useState(null);
+
+    useEffect(() => {
+        // Call the getUserInfo function and set the response in state
+        // console.log(user)
+        getUserInfo(user.email)
+        .then((data) => {
+            console.log(data)
+            setUserInfo(data);
+        })
+        .catch((error) => {
+            console.error('Error getting user info:', error);
+        });
+    }, []);
       
     return (
         <>
@@ -37,7 +54,7 @@ const UserProfile = () => {
                 <div style={{width: '20%'}}>
                     <div style={profileStyle}>
                         <Avatar
-                            name="John Doe"
+                            name={userInfo?.name}
                             size="120"
                             round
                         />

@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -13,16 +13,19 @@ import {auth, database} from '../../firebase'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set } from "firebase/database";
 import { v4 as uuidv4 } from 'uuid';
-
+import { registerUser } from '../../api';
 
 const SignUpEmail = ({role}) => {
     const navigate = useNavigate();
+    useEffect(() => {getUserLocation()},[])
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
         email: '',
         password: '',
     });
+    const [location, setLocation] = useState({latitude: null, longitude: null});
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
@@ -42,33 +45,68 @@ const SignUpEmail = ({role}) => {
           });
     }
     const submitHandler = (e) => {
-        e.preventDefault()
-        console.log(e)
-        console.log(formData)
-        if(formData.firstName==='' || formData.lastName==='' || formData.email==='' || formData.password===''){
-            toast.error('Please fill up all the fields')
-            return
-        } 
+        e.preventDefault();
+        console.log(formData);
+      
+        if (formData.firstName === '' || formData.lastName === '' || formData.email === '' || formData.password === '') {
+          toast.error('Please fill up all the fields');
+          return;
+        }
+      
         createUserWithEmailAndPassword(auth, formData.email, formData.password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                toast.success("Account created successfully")
-                //add user data to realtime database
-                writeUserData()
-                //take user to the home page
-                navigate("/");
-                console.log(user)
-                // ...
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                toast.error(errorMessage)
-                // ..
-        });
-    }
-
+          .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            toast.success('Account created successfully');
+            
+            // Register user data
+            const userData = {
+              email: formData.email,
+              name: formData.firstName + ' ' + formData.lastName,
+              location: [location.latitude, location.longitude],
+              role: role, // Make sure "role" is defined
+              services: [],
+              mobileNumber: '',
+            };
+      
+            registerUser(userData)
+              .then(() => {
+                // Successfully registered user
+                console.log('User registered successfully');
+                // Take user to the home page
+                navigate('/');
+              })
+              .catch((error) => {
+                console.error('Error registering user:', error);
+                // Handle error here
+              });
+      
+            console.log(user);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            toast.error(errorMessage);
+            // Handle error here
+          });
+      };
+      
+    //capture location
+    const getUserLocation = () => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const { latitude, longitude } = position.coords;
+              setLocation({ latitude, longitude });
+            },
+            (error) => {
+              console.error('Error getting user location:', error);
+            }
+          );
+        } else {
+          console.error('Geolocation is not supported by this browser.');
+        }
+    };
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
