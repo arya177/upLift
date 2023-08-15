@@ -218,11 +218,11 @@ app.post("/register",async (req,res)=> {
 app.put("/updateUser", async(req,res) => {
   const dataUser = await getUserInfo(req.body.email);
   await db.ref(`users/${dataUser.uid}`).set({
-    email : req.body.email,
+    email : dataUser.email,
     name : req.body.name,
-    currLocation : req.body.location,
-    prevServiceRecords : dataUser.prevServiceRecords,
-    walletPoints : dataUser.walletPoints,
+    currLocation : req.body.currLocation,
+    prevServiceRecords : dataUser.prevServiceRecords === undefined ? null : dataUser.prevServiceRecords,
+    walletPoints : dataUser.walletPoints === undefined ? null : dataUser.walletPoints,
     role : req.body.role,
     services : (req.body.services === undefined? null : req.body.services),
     mobileNumber : req.body.mobileNumber
