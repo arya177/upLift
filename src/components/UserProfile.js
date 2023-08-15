@@ -6,6 +6,7 @@ import Footer from './Footer';
 import PrimaryNavbar from './PrimaryNavbar';
 import {getUserInfo} from '../api'
 import { useUserContext } from '../UserContext';
+import EditUserProfile from './EditUserProfile'
 
 const UserProfile = () => {
     const user = useUserContext();
@@ -32,10 +33,16 @@ const UserProfile = () => {
           setSelectedTab(tab);
       };
       const [userInfo, setUserInfo] = useState(null);
-
+      const userData = {
+        name: 'John Doe',
+        email: 'john@example.com',
+        mobileNumber: '8769456243',
+        skills: ['React', 'JavaScript'],
+        // Other fields...
+      };
     useEffect(() => {
         // Call the getUserInfo function and set the response in state
-        // console.log(user)
+        console.log(user)
         getUserInfo(user.email)
         .then((data) => {
             console.log(data)
@@ -51,23 +58,28 @@ const UserProfile = () => {
             <PrimaryNavbar/>
             <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'cnenter', border: '1px solid lightgrey', width: '80%', marginTop: '80px', marginBottom: '40px'}}>
-                <div style={{width: '20%'}}>
+                <div style={{width: '25%'}}>
                     <div style={profileStyle}>
                         <Avatar
                             name={userInfo?.name}
                             size="120"
                             round
                         />
-                        <h2 style={nameStyle}>John Doe</h2>
-                        <p style={bioStyle}>Frontend Developer</p>
+                        <h2 style={nameStyle}>{userInfo?.name}</h2>
+                        {userInfo?.services !== undefined && <p style={bioStyle}>{userInfo?.skills[0]}</p>}
                         <div style={{display: 'flex', alignItems: 'center'}}>
                             <Rating name="star-rating" value={4} precision={0.5} max={5} readOnly sx={{marginLeft: '10px'}}/>
                         </div>  
                     </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {/* Align the EditUserProfile component */}
+                        <EditUserProfile userData={userData} />
+                    </div>
                 </div>
                 <div style={{width: '80%'}}>
                 <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '40px', marginTop: '20px'}}>
-            <div style={{width: '80%', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', border: '1px solid lightgrey', padding: '40px'}}>
+            <div style={{width: '75%', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', border: '1px solid lightgrey', padding: '40px'}}>
                 <div style={{width: '100%', display: 'flex'}}>
                     <div 
                         style={{
