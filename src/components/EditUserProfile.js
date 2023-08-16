@@ -47,7 +47,7 @@ const EditUserProfile = ({ userData }) => {
       // Perform any additional actions or state updates
     } else {
       console.error('Failed to update user');
-      success.error("Internal error occured. Please try again")
+      toast.error("Internal error occured. Please try again")
       // Handle error, show error message, etc.
     }
   };
