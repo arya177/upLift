@@ -8,7 +8,7 @@ const uuid = require('uuid-random');
 app.use(express.json());
 const cors = require('cors');
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:8000',
   credentials: true,
 }));
 
@@ -59,8 +59,8 @@ app.post("/createRequest", async (req, res) => {
     services: req.body.service,
     serviceDesc: req.body.serviceDesc,
     mobileNumber: req.body.mobileNumber,
-    title : req.body.title,
-    isContract : req.body.isContract,
+    title: req.body.title,
+    isContract: req.body.isContract,
     status: "active",
     datetime: dateTime,
     expectedServiceTime: req.body.expectTime,
@@ -238,7 +238,7 @@ app.put("/updateUser", async (req, res) => {
     await db.ref(`users/${dataUser.uid}`).set({
       email: dataUser.email,
       name: req.body.name,
-      currLocation: req.body.currLocation,
+      currLocation: req.body.currLocation === undefined ? null : dataUser.currLocation,
       prevServiceRecords: dataUser.prevServiceRecords === undefined ? null : dataUser.prevServiceRecords,
       walletPoints: dataUser.walletPoints === undefined ? null : dataUser.walletPoints,
       role: req.body.role,
@@ -263,6 +263,78 @@ app.post("/saveJob", async (req, res) => {
     }
   } catch (err) {
     res.sendStatus(404);
+  }
+})
+
+app.post("/setMessageRoom", async (req, res) => {
+  try {
+    const dataUser = await getUserInfo(req.body.email);
+    const dbref = ref(db);
+    let snapshot = await get(child(dbref, `users/${req.body.targetuid}`));
+    const targetUser = snapshot.val();
+    const uid = uuid();
+    await set(ref(db, "messages/" + uid), {
+      "messageruid": dataUser.uid,
+      "messaageeuid": req.body.targetuid
+    })
+    await db.ref(`users/${dataUser.uid}/messageRoom`).push({
+      "messengerId": req.body.targetuid,
+      "messagedbId": uid,
+      "messengerName": targetUser.name
+    })
+
+    await db.ref(`users/${req.body.targetuid}/messageRoom`).push({
+      "messengerId": dataUser.uid,
+      "messagedbId": uid,
+      "messengerName": dataUser.name
+    })
+    res.sendStatus(200);
+  } catch (error) {
+    res.sendStatus(500);
+  }
+})
+
+app.post("/userMessages", async (req, res) => {
+  try {
+    const dataUser = await getUserInfo(req.body.email);
+    const dbref = ref(db);
+    let snapshot = await get(child(dbref, `users/${dataUser.uid}/messageRoom`));
+    res.send(snapshot.val()); 
+  } catch(err) {
+    res.send("Error at fetching");
+  }
+})
+
+app.post("/getMessage", async (req, res) => {
+  try {
+    const messageRoomUID = req.body.messageRoomUID;
+    const dbref = ref(db);
+    let snapshot = await get(child(dbref, `messages/${messageRoomUID}`));
+    res.send(snapshot.val()); 
+  } catch (error) {
+    res.send("Error while fetching messages");
+  }
+})
+
+app.post("/sendMessage", async (req, res) => {
+    const dateTime = new Date().toISOString();
+    const roomId = req.body.roomID;
+    const dataUser = await getUserInfo(req.body.email);
+    await db.ref(`messages/${roomId}/message`).push({
+      "user": dataUser.name,
+      "time": dateTime,
+      "message": req.body.message
+    })
+    res.sendStatus(200);
+})
+
+app.get("/getUserInfobyUID", async(req,res) => {
+  try {
+  let snapshot = await get(child(dbref, `users/${req.body.uid}`));
+  const targetUser = snapshot.val();
+  res.send(snapshot.val());
+  } catch(error) {
+    res.send("Error fetching Details of User");
   }
 })
 
