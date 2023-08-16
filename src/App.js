@@ -18,6 +18,7 @@ import JobDetails from './components/clientComponents/JobDetails';
 import MyJobs from './components/clientComponents/MyJobs';
 import AllJobs from './components/clientComponents/AllJobs';
 import UserProfile from './components/UserProfile';
+import MessagePage from './pages/MessagePage';
 
 function App() {
   return (

@@ -40,6 +40,7 @@ const WorkersListCard = ({open, setOpen, jobInfo}) => {
 
                     <div>
                         <WorkerDetailsCard/>
+                        <WorkerDetailsCard/>
                     </div>
                 </div>
                 </div>

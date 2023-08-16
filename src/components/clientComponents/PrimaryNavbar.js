@@ -9,6 +9,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useUserContext } from '../../UserContext';
 import { toast } from 'react-toastify';
+import MessagePage from '../../pages/MessagePage';
+import ClientContent from './ClientContent';
 
 
 const PrimaryNavbar = () => {
@@ -28,7 +30,12 @@ const PrimaryNavbar = () => {
     const handleMouseLeave2 = () => {
         setIsDropdownOpen2(false);
     };
-    
+    const contentWrapperStyles = {
+        flex: 1,
+        overflowY: 'auto', // Enable scrolling for content that exceeds the viewport height
+        padding: '20px', // Adjust padding as needed
+    };
+
     const [options, setOptions] = useState({ 
         findWork: true,
         savedJobs: false,
@@ -40,7 +47,7 @@ const PrimaryNavbar = () => {
     })
     const handlePostJob = () => {
         setOptions({
-            findWork: true,
+            findWork: false,
             savedJobs: false,
             proposals: false,
             myJobs: false,
@@ -60,6 +67,7 @@ const PrimaryNavbar = () => {
             workDiary: false,
             messages: true
         })
+        navigate('/ClientHomePage/messages')
     }
     const handleWorkDiary = () => {
         setOptions({
@@ -297,6 +305,10 @@ const PrimaryNavbar = () => {
             <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
             <div style={{width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid lightgrey'}}></div>
             </div>
+            {options.findWork && <div style={contentWrapperStyles}>
+                <ClientContent />
+            </div>}
+            {options.messages && <MessagePage/>}
         </>
     )
 }

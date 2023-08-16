@@ -14,7 +14,7 @@ import Proposals from './Proposals';
 import MyJobs from './MyJobs';
 import AllContracts from './AllContracts';
 import WorkDiary from './WorkDiary';
-import Messages from './Messages';
+import MessagePage from '../../pages/MessagePage';
 
 
 const PrimaryNavbar = () => {
@@ -318,7 +318,7 @@ const PrimaryNavbar = () => {
             {options.myJobs && <MyJobs/>}
             {options.allContracts && <AllContracts/>}
             {options.workDiary && <WorkDiary/>}
-            {options.messages && <Messages/>}
+            {options.messages && <MessagePage/>}
             {/* </div> */}
         </>
     )

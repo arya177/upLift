@@ -122,7 +122,7 @@ const EditUserProfile = ({ userData }) => {
           }}
           style={fieldStyles}
         />
-        <FormControl fullWidth style={fieldStyles}>
+        {userData.role==="Worker" && <FormControl fullWidth style={fieldStyles}>
           <InputLabel htmlFor="skills-select">Skills</InputLabel>
           <Select
             name="skills"
@@ -139,7 +139,7 @@ const EditUserProfile = ({ userData }) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl>}
         <Button type="submit" variant="contained" color="primary" style={buttonStyles}>
           Save Changes
         </Button>

@@ -104,7 +104,7 @@ const UserProfile = () => {
                     
                     </div>
                     <div style={{marginTop: '30px'}}>
-                    {selectedTab === 'allJobPosts' && 
+                    {/* {selectedTab === 'allJobPosts' && 
                         <>  
                             <JobCard/>
                             <JobCard/>
@@ -117,7 +117,7 @@ const UserProfile = () => {
                             <JobCard/>
                             <JobCard/>
                         </>
-                    }
+                    } */}
                     </div>
 
                 </div>

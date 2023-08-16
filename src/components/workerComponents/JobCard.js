@@ -31,8 +31,14 @@ const JobCard = ({onClick, jobInfo}) => {
     const [open2, setOpen2] = useState(false)
     const handleCardClick = () => {
         console.log("hi")
-        if(userInfo?.role==="Worker") setOpen2(true)
-        else setOpen1(true)
+        if(userInfo?.role==="Worker"){
+            setOpen2(true)
+            setOpen1(false)
+        } 
+        else{
+            setOpen1(true)
+            setOpen2(false)
+        } 
     }
 
     

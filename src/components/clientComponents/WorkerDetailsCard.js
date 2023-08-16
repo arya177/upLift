@@ -5,8 +5,8 @@ import Rating from '@mui/material/Rating';
 const WorkerDetailsCard = () => {
     return (
         <>
-            <div style={{display: 'flex', marginLeft: '40px', marginTop: '20px', border: '1px solid lightgrey', marginRight: '40px', padding: '10px 20px', borderRadius: '5px'}}>
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'left',}}>
+            <div style={{display: 'flex', marginLeft: '40px', marginTop: '20px', border: '1px solid lightgrey', marginRight: '40px', padding: '10px 20px', borderRadius: '5px', justifyContent: 'space-between'}}>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'left',marginLeft: '20px'}}>
                 <div style={{ display: 'flex', alignItems: 'center'}}>
                     <Avatar
                         name="Arya Shahi"
@@ -24,9 +24,9 @@ const WorkerDetailsCard = () => {
                     <p style={{fontSize: '15px', color: 'grey', marginTop: '-8px', padding: '0', marginLeft: '7px'}}>24 reviews</p> 
                 </div>
             </div>
-            <div style={{display: 'flex', flexDirection: 'column'}}>
-                <button>Accept</button>
-                <button>Reject</button>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginRight: '20px'}}>
+                <button style={{padding: '10px 25px', width: '150px',marginTop: '10px', backgroundColor: 'green', color: 'white', fontSize: '17px'}}>Accept</button>
+                <button style={{padding: '10px 25px', width: '150px',marginTop: '10px', backgroundColor: 'red', color: 'white', fontSize: '17px'}}>Reject</button>
             </div>
             </div>
         </>
