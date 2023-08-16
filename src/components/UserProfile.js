@@ -33,20 +33,15 @@ const UserProfile = () => {
           setSelectedTab(tab);
       };
       const [userInfo, setUserInfo] = useState(null);
-      const userData = {
-        name: 'John Doe',
-        email: 'john@example.com',
-        mobileNumber: '8769456243',
-        skills: ['React', 'JavaScript'],
-        // Other fields...
-      };
+    
+       
     useEffect(() => {
         // Call the getUserInfo function and set the response in state
         console.log(user)
         getUserInfo(user.email)
         .then((data) => {
             console.log(data)
-            setUserInfo(data);
+            setUserInfo(data)
         })
         .catch((error) => {
             console.error('Error getting user info:', error);
@@ -66,7 +61,7 @@ const UserProfile = () => {
                             round
                         />
                         <h2 style={nameStyle}>{userInfo?.name}</h2>
-                        {userInfo?.services !== undefined && <p style={bioStyle}>{userInfo?.skills[0]}</p>}
+                        {userInfo?.services !== undefined && <p style={bioStyle}>{userInfo?.services[0]}</p>}
                         <div style={{display: 'flex', alignItems: 'center'}}>
                             <Rating name="star-rating" value={4} precision={0.5} max={5} readOnly sx={{marginLeft: '10px'}}/>
                         </div>  
@@ -74,7 +69,7 @@ const UserProfile = () => {
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         {/* Align the EditUserProfile component */}
-                        <EditUserProfile userData={userData} />
+                        {userInfo && <EditUserProfile userData={userInfo} />}
                     </div>
                 </div>
                 <div style={{width: '80%'}}>

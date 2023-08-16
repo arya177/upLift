@@ -1,6 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import SearchBar from '../SearchBar'
 import JobCard from './JobCard';
+import {getAvailableRequests} from '../../api'
+import { useUserContext } from '../../UserContext';
 
 
 const WorkerContent = () => {
@@ -8,6 +10,20 @@ const WorkerContent = () => {
     const handleTabClick = (index) => {
         setActiveTab(index);
     };
+
+    const [availableRequests, setAvailableRequests] = useState(null);
+    const user = useUserContext();
+    useEffect(() => {
+        async function fetchAvailableRequests() {
+            const requests = await getAvailableRequests(user.email);
+            if (requests) {
+                console.log(requests)
+                setAvailableRequests(requests);
+            }
+        }
+
+        fetchAvailableRequests();
+    }, []);
     
     return (
         <>
@@ -68,12 +84,13 @@ const WorkerContent = () => {
                     </div>
                     {/* <div style={{width: '100%', height: '0px', border:'1px solid lightgrey'}}></div> */}
                     <div style={{marginLeft: '30px', marginTop: '30px'}}>
-                        <JobCard/>
-                        
-                        <JobCard/>
-                        <JobCard/>
-                        <JobCard/>
-                        <JobCard/>
+                        {availableRequests &&
+                            Object.values(availableRequests).map((request, index) => (
+                                <JobCard
+                                    key={index}
+                                    jobInfo={request}
+                                />
+                        ))}
                     </div>
                 </div>
                 <div style={{width:'30%'}}></div>

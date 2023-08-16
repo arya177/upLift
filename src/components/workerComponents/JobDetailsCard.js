@@ -9,7 +9,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import FlagIcon from '@mui/icons-material/Flag';
 
 
-const JobDetailsCard = ({open, setOpen}) => {
+const JobDetailsCard = ({open, setOpen, jobInfo}) => {
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -36,19 +36,19 @@ const JobDetailsCard = ({open, setOpen}) => {
                 <div style={{display: 'flex', marginTop: '20px'}}>
                     <div style={{width: '55%', marginLeft: '40px'}}>
                         <div style={{width:'100%', border: '1px solid lightgrey', padding: '20px', }}>
-                            <p style={{fontSize: '24px', fontWeight: '500'}}>Repairing tubelight</p>
-                            <p>Skills:  welding, safety measures,circuits</p>
+                            <p style={{fontSize: '24px', fontWeight: '500'}}>{jobInfo.title}</p>
+                            <p>Skills:  {jobInfo.services}</p>
                             <p>Posted 5 hrs ago</p>
                             <p style={{display: 'flex', alignItems: 'center'}}>Location: <LocationOnIcon/></p>
                         </div>
                         <div style={{width :'100%', padding: '20px', border: '1px solid lightgrey', marginTop: '10px'}}>
                             <p style={{fontSize: '15px', fontWeight: '500'}}>Job Description</p>
-                            <p style={{fontSize: '15px'}}>I want to get an electrician to repair 2 tubelights. It would be great if electrician brings tubelight and I'll pay for that too.</p>
+                            <p style={{fontSize: '15px'}}>{jobInfo.serviceDesc}</p>
                         
                         </div>
                         <div style={{width :'100%', padding: '5px 20px', border: '1px solid lightgrey', marginTop: '10px', display: 'flex'}}>
                             <p style={{fontSize: '15px', fontWeight: '500'}}>Amount</p>
-                            <p style={{fontSize: '15px', marginLeft: '10px'}}>Rs 300</p>
+                            <p style={{fontSize: '15px', marginLeft: '10px'}}>Rs {jobInfo.proposedPayment}</p>
                         
                         </div>
                         <div style={{width :'100%', padding: '20px', border: '1px solid lightgrey', marginTop: '10px'}}>

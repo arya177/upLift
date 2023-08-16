@@ -1,11 +1,44 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PrimaryNavbar from './PrimaryNavbar';
 import { TextField } from '@mui/material';
 import DropdownList from './DropDownList';
 import { Link,useNavigate } from 'react-router-dom';
+import { skills } from '../../constants';
+import { useUserContext } from '../../UserContext';
 
 const FormPage1 = () => {
     const navigate = useNavigate();
+    const user = useUserContext();
+
+    const [formData, setFormData] = useState({
+        email: user.email,
+        title: "",
+        location: "",
+        service: "",
+        serviceDesc: "",
+        mobileNumber: "",
+        expectTime: "",
+        payment: "",
+        isContract: ""
+    })
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+          ...formData,
+          [name]: value,
+        });
+    };
+    const handleDropdownChange = (selectedValue) => {
+        setFormData({
+          ...formData,
+          service: selectedValue,
+        });
+      };
+    const handleNextClick = () => {
+        const queryParams = new URLSearchParams(formData).toString();
+        navigate(`/ClientHomePage/duration?${queryParams}`);
+    };
+
     return (
         <>
             <PrimaryNavbar/>
@@ -20,12 +53,15 @@ const FormPage1 = () => {
                 <div style={{width: '45%', marginLeft: '5%', marginTop: '50px'}}>
                     <div  style={{fontSize: '20px'}}>Write a title for your job post</div>
                     <div>
-                    <TextField
-                        size='small'
-                        variant="outlined"
-                        margin="normal"
-                        style={{width: '400px'}}
-                    />
+                        <TextField
+                            size="small"
+                            variant="outlined"
+                            margin="normal"
+                            style={{ width: '400px' }}
+                            name="title"
+                            value={formData.title}
+                            onChange={handleInputChange}
+                        />
                     </div>
                     <div>
                         <p style={{fontSize: '20px'}}>Examples</p>
@@ -35,7 +71,7 @@ const FormPage1 = () => {
                             <li>Interior designer</li>
                         </ul>
                         <div>
-                            <DropdownList options={['Option 1', 'Option 2', 'Option 3']}/>
+                        <DropdownList options={skills} onSelect={handleDropdownChange} />
                         </div>
                     </div>
                 </div>
@@ -46,7 +82,7 @@ const FormPage1 = () => {
             </div>
             <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems:'center'}}>
                 <button onClick={() => {navigate('/ClientHomePage/GettingStarted')}}style={{padding: '10px 30px', fontSize: '15px', borderRadius: '5px', backgroundColor:'transparent', color: '#4343a4', marginLeft: '70px', marginTop: '20px'}}>Back</button>
-                <button onClick={() => {navigate('/ClientHomePage/duration')}}style={{padding: '10px 30px', fontSize: '15px', borderRadius: '5px', backgroundColor:'#4343a4', color:'white', marginRight: '70px', marginTop: '20px'}}>Next</button>
+                <button onClick={handleNextClick} style={{padding: '10px 30px', fontSize: '15px', borderRadius: '5px', backgroundColor:'#4343a4', color:'white', marginRight: '70px', marginTop: '20px'}}>Next</button>
             </div>
         </>
     )

@@ -10,10 +10,14 @@ import {
   Container,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { updateUserInfo } from '../api';
+import { skills } from '../constants';
+import { toast } from 'react-toastify';
 
 const EditUserProfile = ({ userData }) => {
   const [formData, setFormData] = useState(userData);
 
+ 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -25,14 +29,27 @@ const EditUserProfile = ({ userData }) => {
   const handleSkillsChange = (event) => {
     setFormData({
       ...formData,
-      skills: event.target.value,
+      services: event.target.value,
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Send updated data to the server
     // Example: updateUserData(formData);
+    console.log(event)
+    console.log(formData)
+    const success = await updateUserInfo(formData);
+
+    if (success) {
+      console.log('User updated successfully');
+      toast.success("Changes saved successfully")
+      // Perform any additional actions or state updates
+    } else {
+      console.error('Failed to update user');
+      success.error("Internal error occured. Please try again")
+      // Handle error, show error message, etc.
+    }
   };
 
   const containerStyles = {
@@ -54,13 +71,7 @@ const EditUserProfile = ({ userData }) => {
     marginTop: '20px',
   };
 
-  const skillsOptions = [
-    'Web Development',
-    'Mobile App Development',
-    'UI/UX Design',
-    'Data Science',
-    'Digital Marketing',
-  ];
+  
 
   return (
     <Container style={containerStyles}>
@@ -85,6 +96,7 @@ const EditUserProfile = ({ userData }) => {
           label="Email"
           value={formData.email}
           onChange={handleInputChange}
+          disabled
           fullWidth
           InputProps={{
             endAdornment: (
@@ -115,13 +127,13 @@ const EditUserProfile = ({ userData }) => {
           <Select
             name="skills"
             multiple
-            value={formData.skills}
+            value={formData.services || []}
             onChange={handleSkillsChange}
             renderValue={(selected) => selected.join(', ')}
             style={selectStyles}
             id="skills-select"
           >
-            {skillsOptions.map((skill) => (
+            {skills.map((skill) => (
               <MenuItem key={skill} value={skill}>
                 {skill}
               </MenuItem>

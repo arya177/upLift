@@ -7,7 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { useUserContext } from '../../UserContext';
 import { toast } from 'react-toastify';
 import WorkerContent from './WorkerContent';
 import SavedJobs from './SavedJobs';
@@ -17,7 +16,9 @@ import AllContracts from './AllContracts';
 import WorkDiary from './WorkDiary';
 import Messages from './Messages';
 
+
 const PrimaryNavbar = () => {
+    
     const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
     const handleMouseEnter1 = (e) => {
         setIsDropdownOpen1(true);
@@ -132,7 +133,7 @@ const PrimaryNavbar = () => {
     //logout
     const navigate = useNavigate();
     const auth = getAuth();
-    const user = useUserContext();
+    
 
     const handleLogout = () => {
         signOut(auth).then(() => {
