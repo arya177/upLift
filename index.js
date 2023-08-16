@@ -230,6 +230,21 @@ app.put("/updateUser", async(req,res) => {
   res.sendStatus(200);
 })
 
+app.put("/updateRequest", async(req,res) => {
+  const dataUser = await getUserInfo(req.body.email);
+  await db.ref(`users/${dataUser.uid}`).set({
+    email : dataUser.email,
+    name : req.body.name,
+    currLocation : req.body.currLocation,
+    prevServiceRecords : dataUser.prevServiceRecords === undefined ? null : dataUser.prevServiceRecords,
+    walletPoints : dataUser.walletPoints === undefined ? null : dataUser.walletPoints,
+    role : req.body.role,
+    services : (req.body.services === undefined? null : req.body.services),
+    mobileNumber : req.body.mobileNumber
+  })
+  res.sendStatus(200);
+})
+
 app.listen(port, () => {
   console.log(`server is running at port ${port}`);
 })
