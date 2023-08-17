@@ -69,8 +69,8 @@ const ClientProfile = () => {
                 <div style={{marginTop: '30px'}}>
                     {selectedTab === 'myContracts' && 
                         <>  
-                            <JobCard/>
-                            <JobCard/>
+                            {/* <JobCard/>
+                            <JobCard/> */}
                         </>
                     }
                 </div>

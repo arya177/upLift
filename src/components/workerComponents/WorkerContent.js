@@ -84,13 +84,15 @@ const WorkerContent = () => {
                     </div>
                     {/* <div style={{width: '100%', height: '0px', border:'1px solid lightgrey'}}></div> */}
                     <div style={{marginLeft: '30px', marginTop: '30px'}}>
-                        {availableRequests &&
-                            Object.values(availableRequests).map((request, index) => (
-                                <JobCard
-                                    key={index}
-                                    jobInfo={request}
-                                />
-                        ))}
+                    {availableRequests &&
+                        Object.entries(availableRequests).map(([requestId, request], index) => (
+                            <JobCard
+                            key={index}
+                            requestId={requestId} // Pass the request ID as a prop
+                            jobInfo={request} // Pass the request data as a prop
+                            />
+                        ))
+                    }
                     </div>
                 </div>
                 <div style={{width:'30%'}}></div>

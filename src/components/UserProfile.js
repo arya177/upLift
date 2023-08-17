@@ -4,7 +4,7 @@ import Rating from '@mui/material/Rating';
 import JobCard from './workerComponents/JobCard';
 import Footer from './Footer';
 import PrimaryNavbar from './PrimaryNavbar';
-import {getUserInfo, fetchUserRequests} from '../api'
+import {getUserInfo} from '../api'
 import { useUserContext } from '../UserContext';
 import EditUserProfile from './EditUserProfile'
 import ClientProfile from './ClientProfile';
