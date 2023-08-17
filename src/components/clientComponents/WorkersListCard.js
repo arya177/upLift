@@ -17,6 +17,7 @@ const WorkersListCard = ({open, setOpen, jobInfo, requestId}) => {
         getUserInfo(user?.email)
         .then((data) => {
             console.log(data)
+            console.log(jobInfo)
             setUserInfo(data)
         })
         .catch((error) => {
@@ -59,8 +60,15 @@ const WorkersListCard = ({open, setOpen, jobInfo, requestId}) => {
                         </div>
                     </div>
                     <div>
-                        <WorkerDetailsCard/>
-                        <WorkerDetailsCard/>
+                        {jobInfo?.approver &&
+                            Object.entries(jobInfo?.approver).map(([approverId, approver], index) =>(
+                                <WorkerDetailsCard 
+                                    key={index}
+                                    approverId={approverId}
+                                    workerInfo={approver}
+                                    requestId={requestId}
+                                />
+                            ))}
                     </div>
                 </div>
                 </div>

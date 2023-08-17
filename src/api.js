@@ -171,3 +171,28 @@ export async function approveApplication(applicationID, email) {
   }
 }
 
+//client accepting a proposal
+export async function acceptApplication(applicationID, approvalID) {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/accept`,
+      { applicationID, approvalID }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//client rejecting a proposal
+export async function rejectApplication(applicationID, approvalID) {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/reject`, {
+      applicationID,
+      approvalID,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

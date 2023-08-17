@@ -60,13 +60,22 @@ const ClientProfile = () => {
                 <div style={{marginTop: '30px'}}>
                     {selectedTab === 'myJobPosts' && 
                         <>  
-                           {userRequests &&
+                           {/* {userRequests &&
                                 Object.values(userRequests).map((request, index) => (
                                     <JobCard
                                         key={index}
                                         jobInfo={request}
                                     />
+                            ))} */}
+                            {userRequests &&
+                                Object.entries(userRequests).map(([requestId, request], index) => (
+                                <JobCard
+                                    key={index}
+                                    requestId={requestId} // Pass the request ID as a prop
+                                    jobInfo={request} // Pass the request data as a prop
+                                />
                             ))}
+
                         </>
                     }
                 </div>
