@@ -369,6 +369,36 @@ app.get("/userJobPosts", async (req, res) => {
   }
 })
 
+app.get("/getSavedJob", async(req,res) => {
+  try {
+    const userData = await getUserInfo(req.query.email);
+    if (userData) {
+      const uniqueIds = Object.keys(userData.savedJobs);
+      const userRequests = {};
+
+      for (const requestId of uniqueIds) {
+        const applicationID = userData.savedJobs[requestId];
+        const requestRef = db.ref('requests/' + applicationID);
+        requestRef.on("value", (snapshot) => {
+          const recordData = snapshot.val();
+          if (recordData) {
+            userRequests[applicationID] = (recordData);
+          }
+        }, (error) => {
+          console.error('Error fetching document:', error);
+        });
+      }
+      setTimeout(() => {
+        res.status(200).send(userRequests);
+      }, 1000); // Adjust the delay as needed
+    } else {
+      res.status(404).send("User not found");
+    }
+  } catch (error) {
+    console.error('Error fetching user info:', error);
+    res.status(500).send("Internal server error");
+  }
+})
 
 app.listen(port, () => {
   console.log(`server is running at port ${port}`);
