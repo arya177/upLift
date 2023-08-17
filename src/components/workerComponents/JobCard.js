@@ -32,12 +32,12 @@ const JobCard = ({onClick, jobInfo}) => {
     const handleCardClick = () => {
         console.log("hi")
         if(userInfo?.role==="Worker"){
-            setOpen2(true)
-            setOpen1(false)
-        } 
-        else{
             setOpen1(true)
             setOpen2(false)
+        } 
+        else{
+            setOpen2(true)
+            setOpen1(false)
         } 
     }
 
@@ -78,8 +78,8 @@ const JobCard = ({onClick, jobInfo}) => {
                     <div style={{marginLeft: '40px', fontSize: '18px', fontSize:'15px'}}><p style={{width: '80%'}}>{jobInfo?.serviceDesc}</p></div>
                 </div>
             </Paper>
-            {userInfo?.role==="Client" && <JobDetailsCard open={open1} setOpen={setOpen1} jobInfo={jobInfo}/>}
-            {userInfo?.role==="Worker" && <WorkersListCard open={open2} setOpen={setOpen2} jobInfo={jobInfo}/>}
+            {userInfo?.role==="Worker" && <JobDetailsCard open={open1} setOpen={setOpen1} jobInfo={jobInfo}/>}
+            {userInfo?.role==="Client" && <WorkersListCard open={open2} setOpen={setOpen2} jobInfo={jobInfo}/>}
         </>
     )
 }

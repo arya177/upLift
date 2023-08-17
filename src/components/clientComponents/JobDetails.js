@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import PrimaryNavbar from './PrimaryNavbar';
+import SecondaryNavbar from './SecondaryNavbar';
 import { Link,useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../Footer'
 import { toast } from 'react-toastify';
@@ -48,12 +48,12 @@ const JobDetails = () => {
         } else {
             console.log('Failed to create request');
         }
-        navigate('/ClientHomePage/')
+        navigate('/ClientHomePage')
         toast.success("Job posted successfully")
     }
     return (
         <>
-            <PrimaryNavbar/>
+            <SecondaryNavbar/>
             <div style={{display: 'flex', flexDirection: 'column', width: '65%', marginLeft: '350px', marginTop: '20px', marginBottom: '50px'}}>
                 <div style={{fontSize: '30px'}}>Job Details</div>
                 <div style={{marginTop: '30px', border: '1px solid lightgrey', borderRadius: '5px', width: '100%'}}>

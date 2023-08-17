@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import PrimaryNavbar from './PrimaryNavbar';
+import SecondaryNavbar from './SecondaryNavbar';
 import { TextField } from '@mui/material';
 import DropdownList from './DropDownList';
 import { Link,useNavigate, useLocation } from 'react-router-dom';
@@ -55,7 +55,7 @@ const FormPage3 = () => {
     };
     return (
         <>
-            <PrimaryNavbar/>
+            <SecondaryNavbar/>
             <div style={{display: 'flex', marginTop: '80px', alignItems: 'center', justifyContent: 'center', width: '60%', marginLeft: '25%'}}>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', width: '40%'}}>
                     <div>3/4 Job post</div>

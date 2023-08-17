@@ -11,7 +11,7 @@ const MyJobs = () => {
 
     return (
         <>
-        <PrimaryNavbar/>
+      
         <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '40px', marginTop: '20px'}}>
             <div style={{width: '80%', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', border: '1px solid lightgrey', padding: '40px'}}>
                 <div style={{width: '100%', display: 'flex'}}>
@@ -61,7 +61,6 @@ const MyJobs = () => {
 
             </div>
         </div>
-        <Footer/>
         </>
     )
 }

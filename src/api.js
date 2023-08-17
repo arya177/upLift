@@ -37,6 +37,7 @@ export const registerUser = async (userData) => {
 
 export const getUserInfo = async (email) => {
   try {
+    console.log(email)
     const response = await axios.get(`${API_BASE_URL}/getUser`, {
       params: { email }, 
     });
@@ -104,3 +105,18 @@ export const getAvailableRequests = async (email) => {
       return null;
   }
 };
+
+//client's job posts
+export async function fetchUserRequests(email) {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/userJobPosts`, {
+      params: {
+        email: email
+      }
+    });
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

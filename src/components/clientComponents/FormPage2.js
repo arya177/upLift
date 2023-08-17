@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import PrimaryNavbar from './PrimaryNavbar';
+import SecondaryNavbar from './SecondaryNavbar';
 import DropdownList from './DropDownList';
 import { Link,useNavigate, useLocation } from 'react-router-dom';
 import { RadioGroup, FormControlLabel, Radio, FormControl, FormLabel, TextField } from '@mui/material';
@@ -78,7 +78,7 @@ const FormPage2 = () => {
     };
     return (
         <>
-            <PrimaryNavbar/>
+            <SecondaryNavbar/>
             <div style={{display: 'flex', marginTop: '80px', width: '60%', marginLeft: '25%'}}>
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', width: '40%'}}>
                     <div>2/4 Job post</div>

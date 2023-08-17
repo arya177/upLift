@@ -8,7 +8,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { Radio,AppBar,Toolbar, FormControlLabel } from '@mui/material';
 import { Link,useNavigate } from 'react-router-dom';
 import logo from '../../images/Logo.png'
-import PrimaryNavbar from './PrimaryNavbar';
+import SecondaryNavbar from './SecondaryNavbar';
 import Footer from '../Footer';
 
 
@@ -36,7 +36,7 @@ const GettingStarted = () => {
     };
   return (
     <>
-    <PrimaryNavbar/>
+    <SecondaryNavbar/>
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px'}}>
     <Card variant="outlined" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 'fit-content', height: 'fit-content', padding: '100px', paddingTop: '20px'}} >
         <div style={{margin: '25px'}}>
@@ -115,7 +115,7 @@ const GettingStarted = () => {
 
     
     </div>
-    <div style={{marginTop: '110px'}}><Footer/></div>
+    
     
     </>
   );

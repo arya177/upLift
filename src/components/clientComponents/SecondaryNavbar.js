@@ -7,20 +7,18 @@ import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { useUserContext } from '../../UserContext';
 import { toast } from 'react-toastify';
-import WorkerContent from './WorkerContent';
-import SavedJobs from './SavedJobs';
-import Proposals from './Proposals';
-import MyJobs from './MyJobs';
-import AllContracts from './AllContracts';
-import WorkDiary from './WorkDiary';
 import MessagePage from '../../pages/MessagePage';
+import ClientContent from './ClientContent';
+import MyJobs from './MyJobs';
+import GettingStarted from './GettingStarted'
+import AllJobs from './AllJobs';
 
 
-const PrimaryNavbar = () => {
-    
-
+const SecondaryNavbar = () => {
     const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
+    const navigate = useNavigate();
     const handleMouseEnter1 = (e) => {
         setIsDropdownOpen1(true);
     };
@@ -35,92 +33,65 @@ const PrimaryNavbar = () => {
     const handleMouseLeave2 = () => {
         setIsDropdownOpen2(false);
     };
-    
+    const contentWrapperStyles = {
+        flex: 1,
+        overflowY: 'auto', // Enable scrolling for content that exceeds the viewport height
+        padding: '20px', // Adjust padding as needed
+    };
+    const handleWorkDiary = () => {
+        console.log("nu"<<"]")
+    }
+
     const [options, setOptions] = useState({ 
-        findWork: true,
-        savedJobs: false,
-        proposals: false,
+        home: true,
+        postJob: false,
         myJobs: false,
-        allContracts: false,
-        workDiary: false,
-        messages: false
+        allJobs: false, 
+        message: false
+
     })
-    const handleFindWork = () => {
+    const handlePostJob = () => {
         setOptions({
-            findWork: true,
-            savedJobs: false,
-            proposals: false,
+            home: false,
+            postJob: true,
             myJobs: false,
-            allContracts: false,
-            workDiary: false,
-            messages: false
+            allJobs: false, 
+            message: false
         })
+        // navigate('/ClientHomePage/GettingStarted')
     }
     const hamdleMessages = () => {
         setOptions({
-            findWork: false,
-            savedJobs: false,
-            proposals: false,
+            home: false,
+            postJob: false,
             myJobs: false,
-            allContracts: false,
-            workDiary: false,
-            messages: true
+            allJobs: false, 
+            message: true
         })
-    }
-    const handleWorkDiary = () => {
-        setOptions({
-            findWork: false,
-            savedJobs: false,
-            proposals: false,
-            myJobs: false,
-            allContracts: false,
-            workDiary: true,
-            messages: false
-        })
-    }
-    const handleAllContracts = () => {
-        setOptions({
-            findWork: false,
-            savedJobs: false,
-            proposals: false,
-            myJobs: false,
-            allContracts: true,
-            workDiary: false,
-            messages: false
-        })
+        // navigate('/ClientHomePage/messages')
     }
     const handleMyJobs = () => {
         setOptions({
-            findWork: false,
-            savedJobs: false,
-            proposals: false,
+            home: false,
+            postJob: false,
             myJobs: true,
-            allContracts: false,
-            workDiary: false,
-            messages: false
+            allJobs: false, 
+            message: false
         })
+        // navigate('/ClientHomePage/my-jobs')
     }
-    const handleProposals = () => {
+    const handleAllJobs = () => {
         setOptions({
-            findWork: false,
-            savedJobs: false,
-            proposals: true,
+            home: false,
+            postJob: false,
             myJobs: false,
-            allContracts: false,
-            workDiary: false,
-            messages: false
+            allJobs: true, 
+            message: false
         })
+        // navigate('/ClientHomePage/all-jobs')
     }
-    const handleSavedJobs = () => {
-        setOptions({
-            findWork: false,
-            savedJobs: true,
-            proposals: false,
-            myJobs: false,
-            allContracts: false,
-            workDiary: false,
-            messages: false
-        })
+    const handleAllContracts = () => {
+        console.log("hi")
     }
 
     //avatar
@@ -132,9 +103,8 @@ const PrimaryNavbar = () => {
         setAnchorEl(null);
     };
     //logout
-    const navigate = useNavigate();
     const auth = getAuth();
-    
+    const user = useUserContext();
 
     const handleLogout = () => {
         signOut(auth).then(() => {
@@ -171,7 +141,7 @@ const PrimaryNavbar = () => {
                                 onMouseLeave={(e) => e.target.style.color = 'black'}
                             >
                             <p style={{fontSize: '19px', display: 'flex'}}>
-                                Find Work
+                                Jobs
                                 <div><ExpandMoreIcon/></div>
                             </p>
                             </div>
@@ -182,26 +152,26 @@ const PrimaryNavbar = () => {
                                             style={{ padding: '10px'}}
                                             onMouseEnter={(e) => e.target.style.color = 'blue'}
                                             onMouseLeave={(e) => e.target.style.color = 'black'}
-                                            onClick = {handleFindWork}
+                                            onClick = {handlePostJob}
                                         >
-                                            <div>Find Work</div>
+                                            <div>Post Job</div>
                                             
                                         </li>
                                         <li 
                                             style={{ padding: '10px'}}
                                             onMouseEnter={(e) => e.target.style.color = 'blue'}
                                             onMouseLeave={(e) => e.target.style.color = 'black'}
-                                            onClick = {handleSavedJobs}
+                                            onClick = {handleMyJobs}
                                         >
-                                            <div>Saved Jobs</div>
+                                            <div>My Jobs</div>
                                         </li>
                                         <li 
                                             style={{ padding: '10px'}}
                                             onMouseEnter={(e) => e.target.style.color = 'blue'}
                                             onMouseLeave={(e) => e.target.style.color = 'black'}
-                                            onClick = {handleProposals}
+                                            onClick = {handleAllJobs}
                                         >
-                                            <div>Proposals</div>
+                                            <div>All Job Posts</div>
                                         </li>
                                         
                                     </ul>
@@ -223,7 +193,7 @@ const PrimaryNavbar = () => {
                                 onMouseLeave={(e) => e.target.style.color = 'black'}
                             >
                             <p style={{fontSize: '19px', display: 'flex'}}>
-                                My Jobs
+                                Talent
                                 <div><ExpandMoreIcon/></div>
                             </p>
                             </div>
@@ -236,7 +206,7 @@ const PrimaryNavbar = () => {
                                             onMouseLeave={(e) => e.target.style.color = 'black'}
                                             onClick = {handleMyJobs}
                                         >
-                                            My Jobs
+                                            Discover
                                         </li>
                                         <li
                                             style={{ padding: '10px'}}
@@ -244,7 +214,7 @@ const PrimaryNavbar = () => {
                                             onMouseLeave={(e) => e.target.style.color = 'black'}
                                             onClick = {handleAllContracts}
                                         >
-                                            All Contracts
+                                            Your Hires
                                         </li>
                                         <li
                                             style={{ padding: '10px'}}
@@ -252,7 +222,7 @@ const PrimaryNavbar = () => {
                                             onMouseLeave={(e) => e.target.style.color = 'black'}
                                             onClick = {handleWorkDiary}
                                         >
-                                            Work Diary
+                                            Company Hires
                                         </li>
                                     </ul>
                                 </div>
@@ -302,7 +272,7 @@ const PrimaryNavbar = () => {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={() => {navigate('/users')}}>Profile</MenuItem>
+                            <MenuItem onClick={()=>{navigate('/users')}}>Profile</MenuItem>
                             <MenuItem onClick={handleLogout}>Logout</MenuItem>
                         </Menu>
                     </div>
@@ -310,18 +280,14 @@ const PrimaryNavbar = () => {
                 
             </div>
             <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                <div style={{width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid lightgrey'}}></div>
+            <div style={{width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid lightgrey'}}></div>
             </div>
-            {/* <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}> */}
-            {options.findWork && <WorkerContent/>}
-            {options.savedJobs && <SavedJobs/>}
-            {options.proposals && <Proposals/>}
+          
             {options.myJobs && <MyJobs/>}
-            {options.allContracts && <AllContracts/>}
-            {options.workDiary && <WorkDiary/>}
-            {options.messages && <MessagePage/>}
-            {/* </div> */}
+            {options.postJob && <GettingStarted/>}
+            {options.message && <MessagePage/>}
+            {options.allJobs && <AllJobs/>}
         </>
     )
 }
-export default PrimaryNavbar;
+export default SecondaryNavbar;

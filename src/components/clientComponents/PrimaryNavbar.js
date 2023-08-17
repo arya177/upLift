@@ -11,6 +11,9 @@ import { useUserContext } from '../../UserContext';
 import { toast } from 'react-toastify';
 import MessagePage from '../../pages/MessagePage';
 import ClientContent from './ClientContent';
+import MyJobs from './MyJobs';
+import GettingStarted from './GettingStarted'
+import AllJobs from './AllJobs';
 
 
 const PrimaryNavbar = () => {
@@ -35,87 +38,61 @@ const PrimaryNavbar = () => {
         overflowY: 'auto', // Enable scrolling for content that exceeds the viewport height
         padding: '20px', // Adjust padding as needed
     };
+    const handleWorkDiary = () => {
+        console.log("nu"<<"]")
+    }
 
     const [options, setOptions] = useState({ 
-        findWork: true,
-        savedJobs: false,
-        proposals: false,
+        home: true,
+        postJob: false,
         myJobs: false,
-        allContracts: false,
-        workDiary: false,
-        messages: false
+        allJobs: false, 
+        message: false
+
     })
     const handlePostJob = () => {
         setOptions({
-            findWork: false,
-            savedJobs: false,
-            proposals: false,
+            home: false,
+            postJob: true,
             myJobs: false,
-            allContracts: false,
-            workDiary: false,
-            messages: false
+            allJobs: false, 
+            message: false
         })
-        navigate('/ClientHomePage/GettingStarted')
+        // navigate('/ClientHomePage/GettingStarted')
     }
     const hamdleMessages = () => {
         setOptions({
-            findWork: false,
-            savedJobs: false,
-            proposals: false,
+            home: false,
+            postJob: false,
             myJobs: false,
-            allContracts: false,
-            workDiary: false,
-            messages: true
+            allJobs: false, 
+            message: true
         })
-        navigate('/ClientHomePage/messages')
-    }
-    const handleWorkDiary = () => {
-        setOptions({
-            findWork: false,
-            savedJobs: false,
-            proposals: false,
-            myJobs: false,
-            allContracts: false,
-            workDiary: true,
-            messages: false
-        })
-    }
-    const handleAllContracts = () => {
-        setOptions({
-            findWork: false,
-            savedJobs: false,
-            proposals: false,
-            myJobs: false,
-            allContracts: true,
-            workDiary: false,
-            messages: false
-        })
+        // navigate('/ClientHomePage/messages')
     }
     const handleMyJobs = () => {
         setOptions({
-            findWork: false,
-            savedJobs: false,
-            proposals: false,
+            home: false,
+            postJob: false,
             myJobs: true,
-            allContracts: false,
-            workDiary: false,
-            messages: false
+            allJobs: false, 
+            message: false
         })
-        navigate('/ClientHomePage/my-jobs')
+        // navigate('/ClientHomePage/my-jobs')
     }
     const handleAllJobs = () => {
         setOptions({
-            findWork: false,
-            savedJobs: false,
-            proposals: true,
+            home: false,
+            postJob: false,
             myJobs: false,
-            allContracts: false,
-            workDiary: false,
-            messages: false
+            allJobs: true, 
+            message: false
         })
-        navigate('/ClientHomePage/all-jobs')
+        // navigate('/ClientHomePage/all-jobs')
     }
- 
+    const handleAllContracts = () => {
+        console.log("hi")
+    }
 
     //avatar
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -305,10 +282,12 @@ const PrimaryNavbar = () => {
             <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
             <div style={{width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid lightgrey'}}></div>
             </div>
-            {options.findWork && <div style={contentWrapperStyles}>
-                <ClientContent />
-            </div>}
-            {options.messages && <MessagePage/>}
+          
+            {options.home && <ClientContent/>}
+            {options.myJobs && <MyJobs/>}
+            {options.postJob && <GettingStarted/>}
+            {options.message && <MessagePage/>}
+            {options.allJobs && <AllJobs/>}
         </>
     )
 }

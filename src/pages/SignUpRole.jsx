@@ -58,10 +58,10 @@ const SignUpRole = () => {
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <PersonSearchIcon sx={{margin: '20px', fontSize: 30}}/>
                     <FormControlLabel
-                        value="option1"
+                        value="Client"
                         control={
                         <Radio
-                            checked={selectedValue === 'option1'}
+                            checked={selectedValue === 'Client'}
                             onChange={handleRadioChange}
                         />
                         }
@@ -77,10 +77,10 @@ const SignUpRole = () => {
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <ManageAccountsIcon sx={{margin: '20px', fontSize: 30}}/>
                     <FormControlLabel
-                        value="option2"
+                        value="Worker"
                         control={
                         <Radio
-                            checked={selectedValue === 'option2'}
+                            checked={selectedValue === 'Worker'}
                             onChange={handleRadioChange}
                         />
                         }
@@ -97,8 +97,8 @@ const SignUpRole = () => {
         </div>
         <div style={{marginTop: '50px'}}>
             {selectedValue==='' && <button disabled style={{padding: '10px', fontSize:'18px', borderRadius: '10px', backgroundColor:'lightgrey', color:'grey', width: '290px'}}>Create Acoount</button>}
-            {selectedValue==="option1" && <button style={{padding: '10px', fontSize:'18px', borderRadius: '10px', backgroundColor:'#1976d2', color:'white', width: '290px'}} onClick={handleRole}>Join as Client</button>}
-            {selectedValue==="option2" && <button style={{padding: '10px', fontSize:'18px', borderRadius: '10px', backgroundColor:'#1976d2', color:'white', width: '290px'}} onClick={handleRole}>Join as Worker</button>}
+            {selectedValue==="Client" && <button style={{padding: '10px', fontSize:'18px', borderRadius: '10px', backgroundColor:'#1976d2', color:'white', width: '290px'}} onClick={handleRole}>Join as Client</button>}
+            {selectedValue==="Worker" && <button style={{padding: '10px', fontSize:'18px', borderRadius: '10px', backgroundColor:'#1976d2', color:'white', width: '290px'}} onClick={handleRole}>Join as Worker</button>}
         </div>
         <div style={{display: 'flex', marginTop:'10px'}}>
             <p>Already have an account?</p>

@@ -1,20 +1,14 @@
-import React, {useState} from 'react'
-import JobCard from '../workerComponents/JobCard';
-import PrimaryNavbar from './PrimaryNavbar';
-import Footer from '../Footer';
+import React from 'react'
 
-const AllJobs = () => {
+const WorkerProfile = () => {
     const [selectedTab, setSelectedTab] = useState('allJobPosts');
     const handleTabClick = (tab) => {
         setSelectedTab(tab);
     };
-
     return (
         <>
-       
-        <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '40px', marginTop: '20px'}}>
-            <div style={{width: '80%', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', border: '1px solid lightgrey', padding: '40px'}}>
-                <div style={{width: '100%', display: 'flex'}}>
+            <div style={{width: '100%'}}>
+            <div style={{width: '100%', display: 'flex'}}>
                     <div 
                         style={{
                             padding: '10px',
@@ -24,7 +18,7 @@ const AllJobs = () => {
                         }}
                         onClick={() => handleTabClick('allJobPosts')}
                     >
-                        All job posts
+                        My job posts
                     </div>
                     <div 
                         style={{
@@ -37,32 +31,32 @@ const AllJobs = () => {
                         }}
                         onClick={() => handleTabClick('allContracts')}
                     >
-                        <div>All contracts</div>
+                        <div>My contracts</div>
                         <div>(2)</div>
                     </div>
                     
                 </div>
                 <div style={{marginTop: '30px'}}>
-                {selectedTab === 'allJobPosts' && 
-                    <>  
-                        <JobCard/>
-                        <JobCard/>
-                    </>
-                }
+                    {/* {selectedTab === 'allJobPosts' && 
+                        <>  
+                            <JobCard/>
+                            <JobCard/>
+                        </>
+                    }
+                    </div>
+                    <div style={{marginTop: '30px'}}>
+                    {selectedTab === 'allContracts' && 
+                        <>  
+                            <JobCard>
+                            <JobCard
+                            <JobCard>
+                            <JobCard/>
+                        </>
+                    } */}
                 </div>
-                <div style={{marginTop: '30px'}}>
-                {selectedTab === 'allContracts' && 
-                    <>  
-                        <JobCard/>
-                        <JobCard/>
-                    </>
-                }
-                </div>
-
             </div>
-        </div>
-   
         </>
     )
 }
-export default AllJobs;
+
+export default WorkerProfile

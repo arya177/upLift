@@ -67,7 +67,7 @@ const LoginEmail = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange} 
-                    label="eamil id" 
+                    label="email id" 
                     variant="outlined" 
                     required
                     sx={{width: '100%', 

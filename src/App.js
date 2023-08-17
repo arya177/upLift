@@ -20,6 +20,7 @@ import AllJobs from './components/clientComponents/AllJobs';
 import UserProfile from './components/UserProfile';
 import MessagePage from './pages/MessagePage';
 
+
 function App() {
   return (
     <>
@@ -42,6 +43,8 @@ function App() {
         <Route path='/ClientHomePage/my-jobs' element={<MyJobs/>}/>
         <Route path='/ClientHomePage/all-jobs' element={<AllJobs/>}/>
         <Route path='/users' element={<UserProfile/>} />
+
+
       </Routes>
     </Router>
     </UserProvider>
