@@ -299,8 +299,8 @@ app.post("/userMessages", async (req, res) => {
     const dataUser = await getUserInfo(req.body.email);
     const dbref = ref(db);
     let snapshot = await get(child(dbref, `users/${dataUser.uid}/messageRoom`));
-    res.send(snapshot.val()); 
-  } catch(err) {
+    res.send(snapshot.val());
+  } catch (err) {
     res.send("Error at fetching");
   }
 })
@@ -310,33 +310,65 @@ app.post("/getMessage", async (req, res) => {
     const messageRoomUID = req.body.messageRoomUID;
     const dbref = ref(db);
     let snapshot = await get(child(dbref, `messages/${messageRoomUID}`));
-    res.send(snapshot.val()); 
+    res.send(snapshot.val());
   } catch (error) {
     res.send("Error while fetching messages");
   }
 })
 
 app.post("/sendMessage", async (req, res) => {
-    const dateTime = new Date().toISOString();
-    const roomId = req.body.roomID;
-    const dataUser = await getUserInfo(req.body.email);
-    await db.ref(`messages/${roomId}/message`).push({
-      "user": dataUser.name,
-      "time": dateTime,
-      "message": req.body.message
-    })
-    res.sendStatus(200);
+  const dateTime = new Date().toISOString();
+  const roomId = req.body.roomID;
+  const dataUser = await getUserInfo(req.body.email);
+  await db.ref(`messages/${roomId}/message`).push({
+    "user": dataUser.name,
+    "time": dateTime,
+    "message": req.body.message
+  })
+  res.sendStatus(200);
 })
 
-app.get("/getUserInfobyUID", async(req,res) => {
+app.get("/getUserInfobyUID", async (req, res) => {
   try {
-  let snapshot = await get(child(dbref, `users/${req.body.uid}`));
-  const targetUser = snapshot.val();
-  res.send(snapshot.val());
-  } catch(error) {
+    let snapshot = await get(child(dbref, `users/${req.body.uid}`));
+    const targetUser = snapshot.val();
+    res.send(snapshot.val());
+  } catch (error) {
     res.send("Error fetching Details of User");
   }
 })
+
+app.get("/userJobPosts", async (req, res) => {
+  try {
+    const userData = await getUserInfo(req.query.email);
+    if (userData) {
+      const uniqueIds = Object.keys(userData.prevServiceRecords);
+      const userRequests = {};
+
+      for (const requestId of uniqueIds) {
+        const requestRef = db.ref('requests/' + requestId);
+
+        requestRef.on("value", (snapshot) => {
+          const recordData = snapshot.val();
+          if (recordData) {
+            userRequests[requestId] = (recordData);
+          }
+        }, (error) => {
+          console.error('Error fetching document:', error);
+        });
+      }
+      setTimeout(() => {
+        res.status(200).send(userRequests);
+      }, 1000); // Adjust the delay as needed
+    } else {
+      res.status(404).send("User not found");
+    }
+  } catch (error) {
+    console.error('Error fetching user info:', error);
+    res.status(500).send("Internal server error");
+  }
+})
+
 
 app.listen(port, () => {
   console.log(`server is running at port ${port}`);
