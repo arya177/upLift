@@ -26,6 +26,20 @@ export const fetchAvailableRequests = async (email) => {
     }
 };
 
+export const fetchSavedRequests = async (email) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/getRequests`, {
+      params: {
+        email: email
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching available requests:', error);
+    throw error;
+  }
+};
+
 export const registerUser = async (userData) => {
     try {
       await axios.post(`${API_BASE_URL}/register`, userData);
@@ -90,6 +104,29 @@ export const getAvailableRequests = async (email) => {
       }
 
       const response = await axios.get(`${API_BASE_URL}/getRequests`, {
+          params: {
+              email: email,
+          },
+      });
+
+      if (response.status === 200) {
+          return response.data;
+      } else {
+          throw new Error('Failed to fetch available requests');
+      }
+  } catch (error) {
+      console.error(error);
+      return null;
+  }
+};
+
+export const getSavedRequests = async (email) => {
+  try {
+      if (!email) {
+          throw new Error('Email parameter is missing');
+      }
+
+      const response = await axios.get(`${API_BASE_URL}/getSavedJob`, {
           params: {
               email: email,
           },
