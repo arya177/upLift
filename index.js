@@ -102,6 +102,7 @@ app.post("/approve", async (req, res) => {
       mobileNumber: approver.mobileNumber,
       uid: approver.uid,
       email: approver.email,
+      services : approver.services,
       status: "waiting"
     })
     res.sendStatus(200);
