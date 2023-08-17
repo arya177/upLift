@@ -196,3 +196,49 @@ export async function rejectApplication(applicationID, approvalID) {
     throw error;
   }
 }
+
+
+//find all the rooms of a user
+export async function getUserMessages(email) {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/userMessages`, {
+      email,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//fetch chat between two users
+export async function getMessage(messageRoomUID) {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/getMessage`, {
+      messageRoomUID: messageRoomUID,
+    });
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+//user wants to send a message
+export const sendMessage = async (roomID, email, message) => {
+  try {
+      const response = await axios.post(`${API_BASE_URL}/sendMessage`, {
+          roomID: roomID,
+          email: email,
+          message: message
+      });
+
+      if (response.status === 200) {
+          return true; // Message sent successfully
+      } else {
+          return false; // Message sending failed
+      }
+  } catch (error) {
+      console.error('Error sending message:', error);
+      return false; // Message sending failed
+  }
+};
