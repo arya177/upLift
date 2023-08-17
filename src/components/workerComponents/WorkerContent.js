@@ -133,7 +133,6 @@ const WorkerContent = () => {
                             Object.entries(availableRequests).map((request, index) => (
                                 <JobCard
                                     key={index}
-                                    requestId={requestId}
                                     jobInfo={request}
                                 />
                         ))}

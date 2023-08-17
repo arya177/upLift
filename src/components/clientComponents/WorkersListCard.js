@@ -3,8 +3,8 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowForwardIos';
 import WorkerDetailsCard from './WorkerDetailsCard';
-import {getUserInfo} from '../api'
-import { useUserContext } from '../UserContext';
+import {getUserInfo} from '../../api'
+import { useUserContext } from '../..//UserContext';
 
 
 const WorkersListCard = ({open, setOpen, jobInfo, requestId}) => {
