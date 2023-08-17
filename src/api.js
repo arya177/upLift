@@ -170,3 +170,4 @@ export async function approveApplication(applicationID, email) {
     throw error;
   }
 }
+
