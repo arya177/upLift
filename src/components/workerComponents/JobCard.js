@@ -78,7 +78,7 @@ const JobCard = ({onClick, jobInfo, requestId}) => {
                 </div>
             </Paper>
             {userInfo?.role==="Worker" && <JobDetailsCard open={open1} setOpen={setOpen1} jobInfo={jobInfo} requestId={requestId}/>}
-            {userInfo?.role==="Client" && <WorkersListCard open={open2} setOpen={setOpen2} jobInfo={jobInfo}/>}
+            {userInfo?.role==="Client" && <WorkersListCard open={open2} setOpen={setOpen2} jobInfo={jobInfo} requestId={requestId}/>}
         </>
     )
 }
