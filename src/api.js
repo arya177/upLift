@@ -157,3 +157,16 @@ export async function fetchUserRequests(email) {
     throw error;
   }
 }
+
+//worker applying for a job
+export async function approveApplication(applicationID, email) {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/approve?applicationID=${applicationID}`,
+      { email: email }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -57,24 +57,20 @@ const ClientProfile = () => {
                     </div>
 
                 </div>
-                <div style={{ marginTop: '30px' }}>
-                    {selectedTab === 'myJobPosts' &&
-                        <>
-                            {userRequests &&
-                                Object.values(userRequests).map((request, index) => (
-                                    <JobCard
-                                        key={index}
-                                        jobInfo={request}
-                                    />
-                                ))}
+                <div style={{marginTop: '30px'}}>
+                    {selectedTab === 'myJobPosts' && 
+                        <>  
+                            {userRequests && userRequests?.map((userRequest, index) => (
+                                <JobCard key={index} jobInfo={userRequest} />
+                            ))}
                         </>
                     }
                 </div>
-                <div style={{ marginTop: '30px' }}>
-                    {selectedTab === 'myContracts' &&
-                        <>
-                            {/* <JobCard />
-                            <JobCard /> */}
+                <div style={{marginTop: '30px'}}>
+                    {selectedTab === 'myContracts' && 
+                        <>  
+                            <JobCard/>
+                            <JobCard/>
                         </>
                     }
                 </div>

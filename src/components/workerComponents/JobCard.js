@@ -9,7 +9,7 @@ import {getUserInfo} from '../../api'
 import { useUserContext } from '../../UserContext';
 
 
-const JobCard = ({onClick, jobInfo}) => {
+const JobCard = ({onClick, jobInfo, requestId}) => {
     const user = useUserContext();
     const [userInfo, setUserInfo] = useState(null);
     
@@ -53,7 +53,6 @@ const JobCard = ({onClick, jobInfo}) => {
         setDisliked(!disliked);
     };
 
-    useEffect(()=>{console.log(userInfo)},[userInfo])
     return (
         <>
             <Paper sx={{ borderTop: 'solid 1px #E0EBEF', marginTop: '10px'}} onClick={onClick}>
@@ -78,8 +77,8 @@ const JobCard = ({onClick, jobInfo}) => {
                     <div style={{marginLeft: '40px', fontSize: '18px', fontSize:'15px'}}><p style={{width: '80%'}}>{jobInfo?.serviceDesc}</p></div>
                 </div>
             </Paper>
-            {userInfo?.role==="Worker" && <JobDetailsCard open={open1} setOpen={setOpen1} jobInfo={jobInfo}/>}
-            {userInfo?.role==="Client" && <WorkersListCard open={open2} setOpen={setOpen2} jobInfo={jobInfo}/>}
+            {userInfo?.role==="Worker" && <JobDetailsCard open={open1} setOpen={setOpen1} jobInfo={jobInfo} requestId={requestId}/>}
+            {userInfo?.role==="Client" && <WorkersListCard open={open2} setOpen={setOpen2} jobInfo={jobInfo} requestId={requestId}/>}
         </>
     )
 }

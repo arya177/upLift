@@ -128,14 +128,15 @@ const WorkerContent = () => {
                             Saved Jobs</div>
                     </div>
                     {/* <div style={{width: '100%', height: '0px', border:'1px solid lightgrey'}}></div> */}
-                    <div style={{ marginLeft: '30px', marginTop: '30px' }}>
+                    <div style={{marginLeft: '30px', marginTop: '30px'}}>
                         {availableRequests &&
-                            Object.values(availableRequests).map((request, index) => (
+                            Object.entries(availableRequests).map((request, index) => (
                                 <JobCard
                                     key={index}
+                                    requestId={requestId}
                                     jobInfo={request}
                                 />
-                            ))}
+                        ))}
                     </div>
                 </div>
                 <div style={{ width: '30%' }}></div>

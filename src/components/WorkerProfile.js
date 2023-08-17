@@ -1,7 +1,28 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { useUserContext } from '../UserContext';
+import {fetchUserRequests} from '../api'
+import JobCard from './workerComponents/JobCard';
 
 const WorkerProfile = () => {
-    const [selectedTab, setSelectedTab] = useState('allJobPosts');
+    const user = useUserContext();
+
+    const [userRequests, setUserRequests] = useState([]);
+    useEffect(() => {
+        async function fetchData() {
+          try {
+            const data = await fetchUserRequests(user?.email);
+            console.log(data)
+            setUserRequests(data);
+          } catch (error) {
+            console.error('Error fetching user requests:', error);
+          }
+        }
+    
+        fetchData();
+      }, [user?.email]);
+
+
+    const [selectedTab, setSelectedTab] = useState('myJobPosts');
     const handleTabClick = (tab) => {
         setSelectedTab(tab);
     };
@@ -12,11 +33,11 @@ const WorkerProfile = () => {
                     <div 
                         style={{
                             padding: '10px',
-                            borderBottom: selectedTab === 'allJobPosts' ? '2px solid blue' : 'none',
-                            color: selectedTab === 'allJobPosts' ? 'blue' : 'black',
+                            borderBottom: selectedTab === 'myJobPosts' ? '2px solid blue' : 'none',
+                            color: selectedTab === 'myJobPosts' ? 'blue' : 'black',
                             cursor: 'pointer',
                         }}
-                        onClick={() => handleTabClick('allJobPosts')}
+                        onClick={() => handleTabClick('myJobPosts')}
                     >
                         My job posts
                     </div>
@@ -25,11 +46,11 @@ const WorkerProfile = () => {
                             marginLeft: '25px',
                             padding: '10px',
                             display: 'flex',
-                            borderBottom: selectedTab === 'allContracts' ? '2px solid blue' : 'none',
-                            color: selectedTab === 'allContracts' ? 'blue' : 'black',
+                            borderBottom: selectedTab === 'myContracts' ? '2px solid blue' : 'none',
+                            color: selectedTab === 'myContracts' ? 'blue' : 'black',
                             cursor: 'pointer',
                         }}
-                        onClick={() => handleTabClick('allContracts')}
+                        onClick={() => handleTabClick('myContracts')}
                     >
                         <div>My contracts</div>
                         <div>(2)</div>
@@ -37,22 +58,21 @@ const WorkerProfile = () => {
                     
                 </div>
                 <div style={{marginTop: '30px'}}>
-                    {/* {selectedTab === 'allJobPosts' && 
+                    {selectedTab === 'myJobPosts' && 
                         <>  
-                            <JobCard/>
-                            <JobCard/>
+                            {userRequests && userRequests?.map((userRequest, index) => (
+                                <JobCard key={index} jobInfo={userRequest} />
+                            ))}
                         </>
                     }
-                    </div>
-                    <div style={{marginTop: '30px'}}>
-                    {selectedTab === 'allContracts' && 
+                </div>
+                <div style={{marginTop: '30px'}}>
+                    {selectedTab === 'myContracts' && 
                         <>  
-                            <JobCard>
-                            <JobCard
-                            <JobCard>
-                            <JobCard/>
+                            {/* <JobCard/>
+                            <JobCard/> */}
                         </>
-                    } */}
+                    }
                 </div>
             </div>
         </>

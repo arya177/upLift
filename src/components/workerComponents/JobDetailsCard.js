@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -7,9 +7,14 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Rating from '@mui/material/Rating';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import FlagIcon from '@mui/icons-material/Flag';
+import { useUserContext } from '../../UserContext';
+import { approveApplication } from '../../api';
+import { toast } from 'react-toastify';
 
 
-const JobDetailsCard = ({open, setOpen, jobInfo}) => {
+const JobDetailsCard = ({open, setOpen, jobInfo, requestId}) => {
+    const user = useUserContext();
+    const [isApplying, setIsApplying] = useState(false);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -19,7 +24,18 @@ const JobDetailsCard = ({open, setOpen, jobInfo}) => {
         }
     };
     
-    
+    const handleApply = async () => {
+        console.log(requestId, user?.email)
+        try {
+            await approveApplication(requestId, user?.email);
+            toast.success('Application submitted successfully.')
+            setIsApplying(true)
+            console.log('Application approved successfully.');
+            
+          } catch (error) {
+            console.error('Error approving application:', error);
+          }
+    }
     return(
         <>
             <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleDrawerOpen}>
@@ -71,7 +87,8 @@ const JobDetailsCard = ({open, setOpen, jobInfo}) => {
                         </div>
                     </div>
                     <div style={{width: '35%', marginLeft: '60px', marginRight: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid lightgrey'}}>
-                        <button style={{width: '80%', marginTop: '50px', padding: '10px', borderRadius: '5px', backgroundColor:'#4343a4', color: 'white', fontSize: '17px'}}>Apply Now</button>
+                        {!isApplying && <button onClick = {handleApply} style={{width: '80%', marginTop: '50px', padding: '10px', borderRadius: '5px', backgroundColor:'#4343a4', color: 'white', fontSize: '17px'}}>Apply Now</button>}
+                        {isApplying && <button style={{width: '80%', marginTop: '50px', padding: '10px', borderRadius: '5px', backgroundColor:'#B0B1B6', fontSize: '17px'}} disabled>Apply Now</button>}
                         <button style={{width: '80%', padding: '10px', borderRadius: '5px', backgroundColor:'transparent', color: 'black', marginTop:'15px', fontSize: '17px'}}>Save Job</button>
                         <div style={{display: 'flex', alignItems: 'center'}}><FlagIcon sx={{color:'#4343a4'}}/> <p style={{marginLeft:'10px'}}>Mark as inappropriate</p></div>
                     </div>

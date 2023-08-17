@@ -1,16 +1,28 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowForwardIos';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import Rating from '@mui/material/Rating';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import FlagIcon from '@mui/icons-material/Flag';
 import WorkerDetailsCard from './WorkerDetailsCard';
+import {getUserInfo} from '../api'
+import { useUserContext } from '../UserContext';
 
 
-const WorkersListCard = ({open, setOpen, jobInfo}) => {
+const WorkersListCard = ({open, setOpen, jobInfo, requestId}) => {
+    const user = useUserContext();
+    const [userInfo, setUserInfo] = useState(null);
+
+    useEffect(() => {
+        // Call the getUserInfo function and set the response in state
+        console.log(user)
+        getUserInfo(user?.email)
+        .then((data) => {
+            console.log(data)
+            setUserInfo(data)
+        })
+        .catch((error) => {
+            console.error('Error getting user info:', error);
+        });
+    }, []);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
